@@ -1,4 +1,31 @@
 {
-  "categories": [],
-  "products": []
+  "categories": [
+    {
+      "name": "Primeira",
+      "id": "f8e5c3c2-1548-494e-a407-73564bf9d23c"
+    },
+    {
+      "name": "Segunda",
+      "id": "667349d9-2a20-4a12-b173-df25f9747dad"
+    }
+  ],
+  "products": [
+    {
+      "name": "Teste",
+      "description": "ghjhggg",
+      "value": "500000",
+      "category": {},
+      "id": "3bbf8d63-02f0-436d-85af-0bd558ae0696"
+    },
+    {
+      "name": "Tyy",
+      "description": "ggg",
+      "value": "65855",
+      "category": {
+        "name": "Primeira",
+        "id": "f8e5c3c2-1548-494e-a407-73564bf9d23c"
+      },
+      "id": "4c88810f-0fd9-44a9-b016-ae16fb554f87"
+    }
+  ]
 }

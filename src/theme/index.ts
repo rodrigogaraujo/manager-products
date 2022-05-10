@@ -48,6 +48,8 @@ export default {
     font14: matrics.screenWidth * (14 / 375),
     font16: matrics.screenWidth * (16 / 375),
     font18: matrics.screenWidth * (18 / 375),
+    font24: matrics.screenWidth * (24 / 375),
+    font30: matrics.screenWidth * (30 / 375),
   },
 
   RATIOHEIGHT: matrics.screenHeight / 710,

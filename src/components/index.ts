@@ -31,3 +31,10 @@ export const Title = styled.Text<IText>`
   font-size: ${({theme}) => theme.FONTSSIZE.font18};
   color: ${({theme, color}) => theme.COLORS[color || 'GRAY_01']};
 `;
+
+export const LabelWithMarginTop = styled.Text<IText>`
+  font-family: ${({theme, bold}) => bold ? theme.FONTS.SEMI_BOLD : theme.FONTS.REGULAR};
+  font-size: ${({theme}) => theme.FONTSSIZE.font14};
+  color: ${({theme, color}) => theme.COLORS[color || 'GRAY_01']};
+  margin-top: 32px;
+`;

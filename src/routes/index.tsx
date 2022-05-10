@@ -1,16 +1,18 @@
-import { useEffect } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import * as SplashScreen from 'expo-splash-screen'
+import AppLoading from 'expo-app-loading'
 
+import { useAuth } from '~/hooks/Auth'
 import { SignIn } from '~/screens/SignIn'
 import { Home } from '~/screens/Home'
-import { useAuth } from '~/hooks/Auth'
-import AppLoading from 'expo-app-loading'
+import { Product } from '~/screens/Product'
+import { Category } from '~/screens/Category'
 
 export type RootStackParamList = {
   SignIn: undefined
 } & {
   Home: undefined
+  Product: undefined
+  Category: undefined
 }
 
 declare global {
@@ -35,7 +37,11 @@ const Routes = () => {
           <HomeStack.Screen name='SignIn' component={SignIn} />
         </>
       ) : (
-        <HomeStack.Screen name='Home' component={Home} />
+        <>
+          <HomeStack.Screen name='Home' component={Home} />
+          <HomeStack.Screen name='Product' component={Product} />
+          <HomeStack.Screen name='Category' component={Category} />
+        </>
       )}
     </HomeStack.Navigator>
   )
