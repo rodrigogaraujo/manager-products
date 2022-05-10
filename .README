@@ -1,9 +1,0 @@
-yarn global add localtunnel
-
-1 - yarn db
-2 - yarn tunnel
-
-3 - expo start
-
-4 - email: admin@admin.com
-5 - password: 123456
