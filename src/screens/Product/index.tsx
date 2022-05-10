@@ -5,9 +5,9 @@ import * as yup from 'yup'
 import uuid from 'react-native-uuid'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Dimensions, ScrollView } from 'react-native'
+import { Dimensions, ScrollView, TouchableOpacity } from 'react-native'
 
-import { Container, LabelWithMarginTop } from '~/components'
+import { Container, Label, LabelWithMarginTop } from '~/components'
 import { Button } from '~/components/Button'
 import { Input } from '~/components/Input'
 import { Content, WrapperButton, WrapperForm } from './style'
@@ -64,6 +64,21 @@ export const Product = ({ route }: ProductScreenProps) => {
       } else {
         await api.post('/products', { ...data, id: uuid.v4() })
         showToast('success', ':)', 'Produto cadastrado com sucesso!')
+      }
+      navigation.goBack()
+    } catch (er) {
+      const { message } = er as { message: string }
+      showToast('error', 'Atenção, houve um erro', message)
+      setLoading(false)
+    }
+  }
+
+  const handleDeleteProduct = async () => {
+    try {
+      setLoading(true)
+      if (route.params?.product) {
+        await api.delete(`/products/${route.params.product.id}`)
+        showToast('success', ':)', 'Produto deletado com sucesso!')
       }
       navigation.goBack()
     } catch (er) {
@@ -196,6 +211,14 @@ export const Product = ({ route }: ProductScreenProps) => {
                 loading={loading}
                 onPress={handleSubmit(onSubmit)}
               />
+              {route.params?.product && (
+                <TouchableOpacity
+                  style={{ marginTop: 32, justifyContent: 'center', alignItems: 'center' }}
+                  onPress={handleDeleteProduct}
+                >
+                  <Label>Deletar produto</Label>
+                </TouchableOpacity>
+              )}
             </WrapperButton>
           </WrapperForm>
         </ScrollView>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, Modal as ModalNative, ScrollView, View } from 'react-native'
+import { FlatList, Modal as ModalNative, ScrollView, TouchableOpacity, View } from 'react-native'
 
 import { Category } from '~/types'
 import {
@@ -94,6 +94,17 @@ export default function ModalCategory({
               onChangeVisible()
             }}
           />
+          {categories && categories.length ? (
+            <TouchableOpacity
+              style={{ marginTop: 32, justifyContent: 'center', alignItems: 'center' }}
+              onPress={() => {
+                navigation.navigate('Categories')
+                onChangeVisible()
+              }}
+            >
+              <Label>Gerenciar Categorias</Label>
+            </TouchableOpacity>
+          ) : null}
         </View>
       </View>
     </ModalNative>

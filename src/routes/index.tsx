@@ -6,14 +6,16 @@ import { SignIn } from '~/screens/SignIn'
 import { Home } from '~/screens/Home'
 import { Product } from '~/screens/Product'
 import { Category } from '~/screens/Category'
-import { Product as ProductType } from '~/types'
+import { Categories } from '~/screens/Categories'
+import { Category as CategoryType, Product as ProductType } from '~/types'
 
 export type RootStackParamList = {
   SignIn: undefined
 } & {
   Home: undefined
   Product: { product?: ProductType } | undefined
-  Category: undefined
+  Category: { category?: CategoryType } | undefined
+  Categories: undefined
 }
 
 declare global {
@@ -42,6 +44,7 @@ const Routes = () => {
           <HomeStack.Screen name='Home' component={Home} />
           <HomeStack.Screen name='Product' component={Product} />
           <HomeStack.Screen name='Category' component={Category} />
+          <HomeStack.Screen name='Categories' component={Categories} />
         </>
       )}
     </HomeStack.Navigator>

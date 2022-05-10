@@ -1,19 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import uuid from 'react-native-uuid'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-import { Container, LabelWithMarginTop } from '~/components'
+import { Container, Label, LabelWithMarginTop } from '~/components'
 import { Button } from '~/components/Button'
 import { Input } from '~/components/Input'
 import { Content, WrapperButton, WrapperForm } from './style'
 import { CategoryForm } from '~/types'
 import { showToast } from '~/utils/services'
 import api from '~/services/api'
+import { RootStackParamList } from '~/routes'
+import { TouchableOpacity } from 'react-native'
 
-export const Category = () => {
+type CategoryScreenProps = NativeStackScreenProps<RootStackParamList, 'Category'>
+
+export const Category = ({ route }: CategoryScreenProps) => {
   const navigation = useNavigation()
   const [loading, setLoading] = useState(false)
   const schema = yup.object().shape({
@@ -24,6 +29,7 @@ export const Category = () => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -34,8 +40,14 @@ export const Category = () => {
   const onSubmit = async (data: CategoryForm) => {
     try {
       setLoading(true)
-      await api.post('/categories', { ...data, id: uuid.v4() })
-      showToast('success', ':)', 'Categoria cadastrada com sucesso!')
+      if (route.params?.category) {
+        await api.put(`/categories/${route.params.category.id}`, { ...data })
+        showToast('success', ':)', 'Categoria atualizado com sucesso!')
+      } else {
+        await api.post('/categories', { ...data, id: uuid.v4() })
+        showToast('success', ':)', 'Categoria cadastrada com sucesso!')
+      }
+
       navigation.goBack()
     } catch (er) {
       const { message } = er as { message: string }
@@ -43,6 +55,27 @@ export const Category = () => {
       setLoading(false)
     }
   }
+
+  const handleDelete = async () => {
+    try {
+      setLoading(true)
+      if (route.params?.category) {
+        await api.delete(`/categories/${route.params.category.id}`)
+        showToast('success', ':)', 'Categoria deletado com sucesso!')
+      }
+      navigation.goBack()
+    } catch (er) {
+      const { message } = er as { message: string }
+      showToast('error', 'Atenção, houve um erro', message)
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (route.params?.category) {
+      setValue('name', route.params.category.name)
+    }
+  }, [route?.params])
 
   return (
     <Container>
@@ -68,7 +101,19 @@ export const Category = () => {
           />
         </WrapperForm>
         <WrapperButton>
-          <Button text='Cadastrar' loading={loading} onPress={handleSubmit(onSubmit)} />
+          <Button
+            text={route.params?.category ? 'Atualizar' : 'Cadastrar'}
+            loading={loading}
+            onPress={handleSubmit(onSubmit)}
+          />
+          {route.params?.category && (
+            <TouchableOpacity
+              style={{ marginTop: 32, justifyContent: 'center', alignItems: 'center' }}
+              onPress={handleDelete}
+            >
+              <Label>Deletar categoria</Label>
+            </TouchableOpacity>
+          )}
         </WrapperButton>
       </Content>
     </Container>
