@@ -1,3 +1,5 @@
+import matrics from "~/utils/matrics";
+
 export default {
   COLORS: {
     BACKGROUND: '#FFFFFF',
@@ -39,4 +41,15 @@ export default {
     BOLD: 'Poppins_700Bold',
     LIGHT: 'Poppins_300Light',
   },
+
+  FONTSSIZE: {
+    font10: matrics.screenWidth * (10 / 375),
+    font12: matrics.screenWidth * (12 / 375),
+    font14: matrics.screenWidth * (14 / 375),
+    font16: matrics.screenWidth * (16 / 375),
+    font18: matrics.screenWidth * (18 / 375),
+  },
+
+  RATIOHEIGHT: matrics.screenHeight / 710,
+  RATIOWIDTH: matrics.screenWidth / 360,
 };
