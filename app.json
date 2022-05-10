@@ -25,7 +25,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "versionCode": 1
+      "versionCode": 1,
+      "package": "com.g3infotech.ManagerProducts"
     },
     "web": {
       "favicon": "./assets/favicon.png"
