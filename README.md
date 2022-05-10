@@ -15,3 +15,18 @@ Step by step to run the project
 
 email: admin@admin.com
 password: 123456
+
+
+techs utilizadas:
+
+expo
+expo fonts
+expo icons
+styled-components
+json server
+hooks
+axios
+react-hook-form
+yup
+eslint
+prettier
