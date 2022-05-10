@@ -5,16 +5,20 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "db": "cd ManagerProductsApi && yarn db",
+    "tunnel": "cd ManagerProductsApi && yarn tunnel"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.2",
     "@expo/vector-icons": "^13.0.0",
     "@hookform/resolvers": "^2.8.8",
+    "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
+    "axios": "^0.27.2",
     "expo": "~45.0.0",
-    "expo-splash-screen": "~0.15.1",
+    "expo-app-loading": "~2.0.0",
     "expo-status-bar": "~1.3.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",

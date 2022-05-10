@@ -9,7 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-
+ManagerProductsApi/node_modules
 
 .env
 

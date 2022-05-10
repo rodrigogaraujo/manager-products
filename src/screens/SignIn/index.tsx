@@ -8,8 +8,11 @@ import { Button } from '~/components/Button'
 import { Input } from '~/components/Input'
 import { Content, WrapperForm } from './style'
 import { SignInCredentials } from '~/types'
+import { useAuth } from '~/hooks/Auth'
+import { showToast } from '~/utils/services'
 
 export const SignIn = () => {
+  const { signIn } = useAuth()
   const [loading, setLoading] = useState(false)
 
   const schema = yup.object().shape({
@@ -32,9 +35,10 @@ export const SignIn = () => {
   const onSubmit = async (data: SignInCredentials) => {
     try {
       setLoading(true)
-      const { email, password } = data
-      console.log(email, password)
+      await signIn(data)
     } catch (er) {
+      const { message } = er as { message: string }
+      showToast('error', 'Atenção, houve um erro', message)
       setLoading(false)
     }
   }

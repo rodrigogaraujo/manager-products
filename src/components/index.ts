@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 interface IText {
   color?: 'GRAY_01' | 'GRAY_02' | 'GRAY_03' | 'GRAY_04' | 'GRAY_05' | 'GRAY_06' | 'GRAY_07'
   align?: 'center' | 'left' | 'right'
+  bold?: boolean
 }
 
 export const Container = styled.View`
@@ -20,7 +21,13 @@ export const Row = styled.View`
 `;
 
 export const Label = styled.Text<IText>`
-  font-family: ${({theme}) => theme.FONTS.REGULAR};
+  font-family: ${({theme, bold}) => bold ? theme.FONTS.SEMI_BOLD : theme.FONTS.REGULAR};
   font-size: ${({theme}) => theme.FONTSSIZE.font14};
+  color: ${({theme, color}) => theme.COLORS[color || 'GRAY_01']};
+`;
+
+export const Title = styled.Text<IText>`
+  font-family: ${({theme, bold}) => bold ? theme.FONTS.BOLD : theme.FONTS.REGULAR};
+  font-size: ${({theme}) => theme.FONTSSIZE.font18};
   color: ${({theme, color}) => theme.COLORS[color || 'GRAY_01']};
 `;

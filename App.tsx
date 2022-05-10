@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 import 'react-native-gesture-handler'
-import * as SplashScreen from 'expo-splash-screen'
+import AppLoading from 'expo-app-loading'
 import {
   useFonts,
   Poppins_300Light,
@@ -14,7 +15,7 @@ import { NavigationContainer, NavigationContainerRef } from '@react-navigation/n
 
 import theme from './src/theme'
 import Routes, { RootStackParamList } from './src/routes'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import AppProvider from './src/hooks'
 
 const App = () => {
   const navigation = React.useRef<NavigationContainerRef<RootStackParamList> | null>(null)
@@ -25,21 +26,9 @@ const App = () => {
     Poppins_700Bold,
   })
 
-  useEffect(() => {
-    async function prepare() {
-      try {
-        if (!fontsLoaded) {
-          await SplashScreen.preventAutoHideAsync()
-        } else {
-          await SplashScreen.hideAsync()
-        }
-      } catch (e) {
-        console.warn(e)
-      }
-    }
-
-    prepare()
-  }, [fontsLoaded])
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -52,7 +41,9 @@ const App = () => {
           style={{ flex: 1 }}
           enabled
         >
-          <Routes />
+          <AppProvider>
+            <Routes />
+          </AppProvider>
           <Toast />
         </KeyboardAvoidingView>
       </NavigationContainer>
