@@ -4,7 +4,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({theme}) => theme.COLORS.BACKGROUND};
+  background-color: ${({theme}) => theme.COLORS.GRAY_06};
   padding-top: ${getStatusBarHeight()};
 `;
 
@@ -22,4 +22,12 @@ export const FabButton = styled.TouchableOpacity`
 
 export const IconStyled = styled(Icon)`
   
+`;
+
+export const WrapperProduct = styled.TouchableOpacity`
+  background-color: ${({theme}) => theme.COLORS.BACKGROUND};
+  margin-top: 12px;
+  border-radius: 12px;
+  width: 100%;
+  padding: 16px;
 `;

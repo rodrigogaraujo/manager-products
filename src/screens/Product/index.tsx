@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import uuid from 'react-native-uuid'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Dimensions, ScrollView } from 'react-native'
 
 import { Container, LabelWithMarginTop } from '~/components'
 import { Button } from '~/components/Button'
@@ -14,10 +16,11 @@ import { formatReal, showToast } from '~/utils/services'
 import { InputSelect } from '~/components/InputSelect'
 import ModalCategory from './components/ModalCategory'
 import api from '~/services/api'
-import { ScrollView } from 'react-native-gesture-handler'
-import { Dimensions } from 'react-native'
+import { RootStackParamList } from '~/routes'
 
-export const Product = () => {
+type ProductScreenProps = NativeStackScreenProps<RootStackParamList, 'Product'>
+
+export const Product = ({ route }: ProductScreenProps) => {
   const navigation = useNavigation()
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -55,8 +58,13 @@ export const Product = () => {
         return
       }
       setLoading(true)
-      await api.post('/products', { ...data, id: uuid.v4() })
-      showToast('success', ':)', 'Produto cadastrado com sucesso!')
+      if (route.params?.product) {
+        await api.put(`/products/${route.params.product.id}`, { ...data })
+        showToast('success', ':)', 'Produto atualizado com sucesso!')
+      } else {
+        await api.post('/products', { ...data, id: uuid.v4() })
+        showToast('success', ':)', 'Produto cadastrado com sucesso!')
+      }
       navigation.goBack()
     } catch (er) {
       const { message } = er as { message: string }
@@ -68,6 +76,15 @@ export const Product = () => {
   useEffect(() => {
     if (categorySelected) setValue('category', categorySelected)
   }, [categorySelected])
+
+  useEffect(() => {
+    if (route.params?.product) {
+      setValue('category', route.params.product.category)
+      setValue('description', route.params.product.description)
+      setValue('value', route.params.product.value)
+      setValue('name', route.params.product.name)
+    }
+  }, [route?.params])
 
   useFocusEffect(
     useCallback(() => {
@@ -174,7 +191,11 @@ export const Product = () => {
               )}
             />
             <WrapperButton>
-              <Button text='Cadastrar' loading={loading} onPress={handleSubmit(onSubmit)} />
+              <Button
+                text={route.params?.product ? 'Atualizar' : 'Cadastrar'}
+                loading={loading}
+                onPress={handleSubmit(onSubmit)}
+              />
             </WrapperButton>
           </WrapperForm>
         </ScrollView>

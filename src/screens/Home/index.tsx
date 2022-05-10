@@ -1,11 +1,12 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { ActivityIndicator, FlatList } from 'react-native'
 import { useTheme } from 'styled-components'
-import { Row, Title } from '~/components'
+import { Label, Row, RowBetwenn, Title } from '~/components'
 import api from '~/services/api'
 import { Product } from '~/types'
-import { FabButton, Container, IconStyled } from './styles'
+import { formatReal } from '~/utils/services'
+import { FabButton, Container, IconStyled, WrapperProduct } from './styles'
 
 export const Home = () => {
   const theme = useTheme()
@@ -36,7 +37,17 @@ export const Home = () => {
       ) : (
         <FlatList
           data={products}
-          renderItem={({ item }) => <></>}
+          contentContainerStyle={{ paddingLeft: 30, paddingRight: 30 }}
+          renderItem={({ item }) => (
+            <WrapperProduct onPress={() => navigation.navigate('Product', { product: item })}>
+              <Title bold>{item.name}</Title>
+              <Label>{item.description}</Label>
+              <RowBetwenn style={{ marginTop: 12 }}>
+                <Label color='PRIMARY'>R$ {formatReal(Number(item.value))}</Label>
+                <Label>{item?.category?.name}</Label>
+              </RowBetwenn>
+            </WrapperProduct>
+          )}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
         />

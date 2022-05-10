@@ -2,7 +2,7 @@ import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import styled from "styled-components/native";
 
 interface IText {
-  color?: 'GRAY_01' | 'GRAY_02' | 'GRAY_03' | 'GRAY_04' | 'GRAY_05' | 'GRAY_06' | 'GRAY_07'
+  color?: 'GRAY_01' | 'GRAY_02' | 'GRAY_03' | 'GRAY_04' | 'GRAY_05' | 'GRAY_06' | 'GRAY_07' | 'PRIMARY'
   align?: 'center' | 'left' | 'right'
   bold?: boolean
 }
@@ -37,4 +37,10 @@ export const LabelWithMarginTop = styled.Text<IText>`
   font-size: ${({theme}) => theme.FONTSSIZE.font14};
   color: ${({theme, color}) => theme.COLORS[color || 'GRAY_01']};
   margin-top: 32px;
+`;
+
+export const RowBetwenn = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;

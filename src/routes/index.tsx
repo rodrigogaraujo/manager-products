@@ -6,12 +6,13 @@ import { SignIn } from '~/screens/SignIn'
 import { Home } from '~/screens/Home'
 import { Product } from '~/screens/Product'
 import { Category } from '~/screens/Category'
+import { Product as ProductType } from '~/types'
 
 export type RootStackParamList = {
   SignIn: undefined
 } & {
   Home: undefined
-  Product: undefined
+  Product: { product?: ProductType } | undefined
   Category: undefined
 }
 
